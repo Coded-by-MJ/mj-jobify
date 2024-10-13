@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: "Jobify",
     images: [
       {
-        url: "/preview.png", // URL to a preview image
+        url: "https://opengraph.b-cdn.net/production/images/853c923d-f47f-47e2-a5fd-c6025db8b94e.png?token=Uuu8_UHKNJUy41YdMtWl_PueY7LgbyPWvdc9RYEtYhA&height=604&width=1200&expires=33264826371", // URL to a preview image
         width: 1200,
         height: 630,
         alt: "Jobify Application Tracker",
@@ -34,7 +34,9 @@ export const metadata: Metadata = {
     title: "Jobify - Track Your Job Applications",
     description:
       "Manage and track your job applications effortlessly with Jobify. Stay organized with real-time updates, profiles, and more.",
-    images: ["/preview.png"], // URL to a preview image optimized for Twitter
+    images: [
+      "https://opengraph.b-cdn.net/production/images/853c923d-f47f-47e2-a5fd-c6025db8b94e.png?token=Uuu8_UHKNJUy41YdMtWl_PueY7LgbyPWvdc9RYEtYhA&height=604&width=1200&expires=33264826371",
+    ], // URL to a preview image optimized for Twitter
   },
 };
 export default function RootLayout({
