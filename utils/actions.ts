@@ -4,7 +4,7 @@ import prisma from "./db";
 import { auth } from "@clerk/nextjs/server";
 import { JobType, CreateAndEditJobType, createAndEditJobSchema } from "./types";
 import { redirect } from "next/navigation";
-// import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import dayjs from "dayjs";
 
 function authenticateAndRedirect(): string {
@@ -174,6 +174,12 @@ export async function updateJobAction(
   }
 }
 
+type Curr = Prisma.PickEnumerable<Prisma.JobGroupByOutputType, "status"[]> & {
+  _count: {
+    status: number;
+  };
+};
+
 export async function getStatsAction(): Promise<{
   pending: number;
   interview: number;
@@ -191,10 +197,13 @@ export async function getStatsAction(): Promise<{
         clerkId: userId,
       },
     });
-    const statsObject = stats.reduce((acc: Record<string, number>, curr) => {
-      acc[curr.status] = curr._count.status;
-      return acc;
-    }, {} as Record<string, number>);
+    const statsObject = stats.reduce(
+      (acc: Record<string, number>, curr: Curr) => {
+        acc[curr.status] = curr._count.status;
+        return acc;
+      },
+      {} as Record<string, number>
+    );
 
     const defaultStats = {
       pending: 0,
