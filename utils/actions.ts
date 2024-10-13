@@ -4,7 +4,7 @@ import prisma from "./db";
 import { auth } from "@clerk/nextjs/server";
 import { JobType, CreateAndEditJobType, createAndEditJobSchema } from "./types";
 import { redirect } from "next/navigation";
-
+import { Prisma } from "@prisma/client";
 import dayjs from "dayjs";
 
 function authenticateAndRedirect(): string {
@@ -44,10 +44,6 @@ type GetAllJobsActionTypes = {
   limit?: number;
 };
 
-type DynamicWhereClause = {
-  [key: string]: any;
-};
-
 export async function getAllJobsAction({
   search,
   jobStatus,
@@ -62,7 +58,7 @@ export async function getAllJobsAction({
   const userId = authenticateAndRedirect();
 
   try {
-    let whereClause: DynamicWhereClause = {
+    let whereClause: Prisma.JobWhereInput = {
       clerkId: userId,
     };
     if (search) {
@@ -174,13 +170,6 @@ export async function updateJobAction(
   }
 }
 
-type JobStats = {
-  status: string;
-  _count: {
-    status: number;
-  };
-};
-
 export async function getStatsAction(): Promise<{
   pending: number;
   interview: number;
@@ -198,13 +187,10 @@ export async function getStatsAction(): Promise<{
         clerkId: userId,
       },
     });
-    const statsObject = stats.reduce(
-      (acc: Record<string, number>, curr: JobStats) => {
-        acc[curr.status] = curr._count.status;
-        return acc;
-      },
-      {} as Record<string, number>
-    );
+    const statsObject = stats.reduce((acc, curr) => {
+      acc[curr.status] = curr._count.status;
+      return acc;
+    }, {} as Record<string, number>);
 
     const defaultStats = {
       pending: 0,
@@ -237,22 +223,19 @@ export async function getChartsDataAction(): Promise<
       },
     });
 
-    const applicationsPerMonth = jobs.reduce(
-      (acc: Array<{ date: string; count: number }>, job: JobType) => {
-        const date = dayjs(job.createdAt).format("MMM YY");
+    const applicationsPerMonth = jobs.reduce((acc, job) => {
+      const date = dayjs(job.createdAt).format("MMM YY");
 
-        const existingEntry = acc.find((entry) => entry.date === date);
+      const existingEntry = acc.find((entry) => entry.date === date);
 
-        if (existingEntry) {
-          existingEntry.count += 1;
-        } else {
-          acc.push({ date, count: 1 });
-        }
+      if (existingEntry) {
+        existingEntry.count += 1;
+      } else {
+        acc.push({ date, count: 1 });
+      }
 
-        return acc;
-      },
-      [] as Array<{ date: string; count: number }>
-    );
+      return acc;
+    }, [] as Array<{ date: string; count: number }>);
 
     return applicationsPerMonth;
   } catch (error) {
