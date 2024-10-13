@@ -4,7 +4,7 @@ import prisma from "./db";
 import { auth } from "@clerk/nextjs/server";
 import { JobType, CreateAndEditJobType, createAndEditJobSchema } from "./types";
 import { redirect } from "next/navigation";
-// import * as PM from "@prisma/client";
+
 import dayjs from "dayjs";
 
 function authenticateAndRedirect(): string {
