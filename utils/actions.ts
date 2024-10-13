@@ -180,8 +180,7 @@ export async function getStatsAction(): Promise<{
   declined: number;
 }> {
   const userId = authenticateAndRedirect();
-  // just to show Skeleton
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
+
   try {
     const stats = await prisma.job.groupBy({
       by: ["status"],
@@ -192,7 +191,7 @@ export async function getStatsAction(): Promise<{
         clerkId: userId,
       },
     });
-    const statsObject = stats.reduce((acc, curr) => {
+    const statsObject = stats.reduce((acc: Record<string, number>, curr) => {
       acc[curr.status] = curr._count.status;
       return acc;
     }, {} as Record<string, number>);
