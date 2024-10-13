@@ -13,8 +13,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-
 model Job {
   id        String      @id @default(uuid())
   clerkId   String
