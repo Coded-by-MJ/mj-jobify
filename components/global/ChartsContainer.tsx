@@ -21,7 +21,7 @@ function ChartsContainer() {
   if (!data || data.length < 1) return null;
   return (
     <section className="mt-16">
-      <h1 className="text-4xl font-semibold text-center">
+      <h1 className="text-3xl font-semibold text-center">
         Monthly Applications
       </h1>
       <ResponsiveContainer width="100%" height={300}>

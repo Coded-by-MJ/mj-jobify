@@ -18,9 +18,10 @@ function Sidebar() {
               asChild
               key={link.href}
               variant={pathname === link.href ? "default" : "link"}
+              className="flex justify-center items-center gap-x-2 "
             >
-              <Link href={link.href} className="flex items-center gap-x-2 ">
-                {link.icon}{" "}
+              <Link href={link.href}>
+                {link.icon}
                 <span className="capitalize block">{link.label}</span>
               </Link>
             </Button>

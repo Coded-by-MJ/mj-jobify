@@ -8,9 +8,10 @@ function Navbar() {
       <div>
         <LinksDropdown />
       </div>
+      <h1 className="text-primary font-bold text-xl">Dashboard</h1>
       <div className="flex items-center gap-x-4">
         <ThemeToggle />
-        <UserButton afterSignOutUrl="/" />
+        <UserButton />
       </div>
     </nav>
   );
