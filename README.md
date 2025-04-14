@@ -23,7 +23,7 @@ Jobify is a full-stack web application that allows users to track, manage, and o
 
 ## Live Link
 
-- [Jobify](https://mj-jobify.vercel.app/)
+- [Jobify](https://jobify.miracleibharokhonre.com/)
 
 ## Author
 

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: "Jobify - Track Your Job Applications",
     description:
       "Jobify allows users to manage their job applications with ease. Create profiles, track applications, and stay organized in your job search.",
-    url: "https://mj-jobify.vercel.app/",
+    url: "https://jobify.miracleibharokhonre.com/",
     siteName: "Jobify",
     images: [
       {
